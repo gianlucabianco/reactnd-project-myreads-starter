@@ -2,7 +2,6 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-import BookCard from './components/BookCard';
 import Bookshelf from './components/Bookshelf';
 
 class BooksApp extends React.Component {
@@ -13,65 +12,74 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    books: {
-      currentReading: [
-        {
-          title: 'Composing Software: An Exploration of Functional Programming and Object Composition in JavaScript',
-          author: 'Eric Elliot',
-          cover: 'https://d2sofvawe08yqg.cloudfront.net/composingsoftware/hero?1588710676',
-        },
-        {
-          title: 'Batwoman',
-          author: 'J.H. Williams III',
-          cover: 'https://images-na.ssl-images-amazon.com/images/I/61KzMKstU-L._SX320_BO1,204,203,200_.jpg',
-        },
-        {
-          title: 'Do the work',
-          author: 'Steven Pressfield',
-          cover: 'https://images-na.ssl-images-amazon.com/images/I/41S6LVVM5pL._SX311_BO1,204,203,200_.jpg',
-        },
-      ],
-      wantToRead: [
-        {
-          title: 'Clean Code: A Handbook of Agile Software Craftsmanship',
-          author: 'Martin Robert C.',
-          cover: 'https://m.media-amazon.com/images/I/41SH-SvWPxL.jpg',
-        },
-        {
-          title: 'Promethea',
-          author: 'Alan Moore',
-          cover: 'https://i.pinimg.com/474x/f5/fa/87/f5fa87848339b69b90a981563f9aff06--bangs-to-bring.jpg',
-        },
-        {
-          title: 'Shogun',
-          author: 'James Clavell',
-          cover: 'https://img.ibs.it/images/9788858779347_0_0_626_75.jpg',
-        },
-      ],
-      read: [
-        {
-          title: 'Homo Deus: A Brief History of Tomorrow',
-          author: 'Yuval Noah Harari',
-          cover: 'https://images-na.ssl-images-amazon.com/images/I/71FX96Ae-PL.jpg',
-        },
-        {
-          title: 'Akira',
-          author: 'Katsuhiro Ōtomo',
-          cover: 'https://images-na.ssl-images-amazon.com/images/I/91XooFfV1tL.jpg',
-        },
-        {
-          title: 'The verdant passage',
-          author: 'Troy Denning',
-          cover: 'https://images-na.ssl-images-amazon.com/images/I/51AXYF5GWVL.jpg',
-        },
-      ],
-    },
+    bookShelves: [
+      {
+        title: 'Currently Reading',
+        books: [
+          {
+            title: 'Composing Software: An Exploration of Functional Programming and Object Composition in JavaScript',
+            author: 'Eric Elliot',
+            cover: 'https://d2sofvawe08yqg.cloudfront.net/composingsoftware/hero?1588710676',
+          },
+          {
+            title: 'Batwoman',
+            author: 'J.H. Williams III',
+            cover: 'https://images-na.ssl-images-amazon.com/images/I/61KzMKstU-L._SX320_BO1,204,203,200_.jpg',
+          },
+          {
+            title: 'Do the work',
+            author: 'Steven Pressfield',
+            cover: 'https://images-na.ssl-images-amazon.com/images/I/41S6LVVM5pL._SX311_BO1,204,203,200_.jpg',
+          },
+        ],
+      },
+      {
+        title: 'Want to Read',
+        books: [
+          {
+            title: 'Clean Code: A Handbook of Agile Software Craftsmanship',
+            author: 'Martin Robert C.',
+            cover: 'https://m.media-amazon.com/images/I/41SH-SvWPxL.jpg',
+          },
+          {
+            title: 'Promethea',
+            author: 'Alan Moore',
+            cover: 'https://i.pinimg.com/474x/f5/fa/87/f5fa87848339b69b90a981563f9aff06--bangs-to-bring.jpg',
+          },
+          {
+            title: 'Shogun',
+            author: 'James Clavell',
+            cover: 'https://img.ibs.it/images/9788858779347_0_0_626_75.jpg',
+          },
+        ],
+      },
+      {
+        title: 'Read',
+        books: [
+          {
+            title: 'Homo Deus: A Brief History of Tomorrow',
+            author: 'Yuval Noah Harari',
+            cover: 'https://images-na.ssl-images-amazon.com/images/I/71FX96Ae-PL.jpg',
+          },
+          {
+            title: 'Akira',
+            author: 'Katsuhiro Ōtomo',
+            cover: 'https://images-na.ssl-images-amazon.com/images/I/91XooFfV1tL.jpg',
+          },
+          {
+            title: 'The verdant passage',
+            author: 'Troy Denning',
+            cover: 'https://images-na.ssl-images-amazon.com/images/I/51AXYF5GWVL.jpg',
+          },
+        ],
+      }
+    ],
     showSearchPage: false
   }
 
   render() {
 
-    const { books } = this.state;
+    const { bookShelves } = this.state;
 
     return (
       <div className="app">
@@ -98,82 +106,26 @@ class BooksApp extends React.Component {
           </div>
         ) : (
           <div className="list-books">
+
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+
             <div className="list-books-content">
               <div>
-              <Bookshelf
-                books={ books.currentReading }
-                section={ 'Read' }
-              />
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books.currentReading.map(
-                          book => (
-                            <li
-                              key={ book.title }
-                            >
-                              <BookCard
-                                title={ book.title }
-                                author={ book.author }
-                                cover={ book.cover }
-                              />
-                            </li>
-                          )
-                        )
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books.wantToRead.map(
-                          book => (
-                            <li
-                              key={ book.title }
-                            >
-                              <BookCard
-                                title={ book.title }
-                                author={ book.author }
-                                cover={ book.cover }
-                              />
-                            </li>
-                          )
-                        )
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books.read.map(
-                          book => (
-                            <li
-                              key={ book.title }
-                            >
-                              <BookCard
-                                title={ book.title }
-                                author={ book.author }
-                                cover={ book.cover }
-                              />
-                            </li>
-                          )
-                        )
-                      }
-                    </ol>
-                  </div>
-                </div>
+              {
+                bookShelves.map(
+                  shelf => (
+                    <Bookshelf
+                      key={ shelf.title }
+                      books={ shelf.books }                      
+                      shelfName={ shelf.title }                      
+                    />
+                  )
+                )
+              }
               </div>
+              
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
