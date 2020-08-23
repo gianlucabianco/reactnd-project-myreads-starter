@@ -6,11 +6,14 @@ class Bookshelf extends React.Component {
 
     render() {
 
-        const { books, section } = this.props;
+        const {
+            books,
+            shelfName
+        } = this.props;
 
         return (
             <div className="bookshelf">
-                <h2 className="bookshelf-title">{ section }</h2>
+                <h2 className="bookshelf-title">{ shelfName }</h2>
                 <div className="bookshelf-books">
                 <ol className="books-grid">
                     {
@@ -20,9 +23,9 @@ class Bookshelf extends React.Component {
                             key={ book.title }
                         >
                             <BookCard
-                            title={ book.title }
-                            author={ book.author }
-                            cover={ book.cover }
+                                title={ book.title }
+                                author={ book.author }
+                                cover={ book.cover }
                             />
                         </li>
                         )
