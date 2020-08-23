@@ -16,7 +16,9 @@ class Bookshelf extends React.Component {
                     {
                     books.map(
                         book => (
-                        <li>
+                        <li 
+                            key={ book.title }
+                        >
                             <BookCard
                             title={ book.title }
                             author={ book.author }
