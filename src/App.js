@@ -2,6 +2,8 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
+import BookCard from './components/BookCard';
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -83,6 +85,14 @@ class BooksApp extends React.Component {
                           <div className="book-title">Ender's Game</div>
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
+                      </li>
+                      <li>
+                        {/* test here */}
+                        <BookCard
+                          bookTitle={'Batwoman'}
+                          bookAuthor={'J.H. Williams III'}
+                          bookCover={'https://images-na.ssl-images-amazon.com/images/I/61KzMKstU-L._SX320_BO1,204,203,200_.jpg'}
+                        />
                       </li>
                     </ol>
                   </div>
