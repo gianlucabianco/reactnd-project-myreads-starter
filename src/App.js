@@ -109,7 +109,9 @@ class BooksApp extends React.Component {
                       {
                         books.currentReading.map(
                           book => (
-                            <li>
+                            <li
+                              key={ book.title }
+                            >
                               <BookCard
                                 title={ book.title }
                                 author={ book.author }
@@ -129,7 +131,9 @@ class BooksApp extends React.Component {
                       {
                         books.wantToRead.map(
                           book => (
-                            <li>
+                            <li
+                              key={ book.title }
+                            >
                               <BookCard
                                 title={ book.title }
                                 author={ book.author }
@@ -149,7 +153,9 @@ class BooksApp extends React.Component {
                       {
                         books.read.map(
                           book => (
-                            <li>
+                            <li
+                              key={ book.title }
+                            >
                               <BookCard
                                 title={ book.title }
                                 author={ book.author }
