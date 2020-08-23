@@ -5,9 +5,9 @@ class BookCard extends React.Component {
     render() {
 
         const {
-            bookTitle,
-            bookAuthor,
-            bookCover
+            title,
+            author,
+            cover
         } = this.props;
 
         return (
@@ -22,10 +22,10 @@ class BookCard extends React.Component {
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
-                        backgroundImage: `url("${bookCover}")`,
+                        backgroundImage: `url("${ cover }")`,
                     }}
                 />
-                {/* TODO: this should be a compoent */}
+                {/* TODO: this should be a compoent ? */}
                 <div className="book-shelf-changer">
                     <select>
                         <option value="move" disabled>Move to...</option>
@@ -37,15 +37,11 @@ class BookCard extends React.Component {
                 </div>
                 </div>
 
-                <div
-                    className="book-title"
-                >
-                    { bookTitle }
+                <div className="book-title" >
+                    { title }
                 </div>
-                <div
-                    className="book-authors"
-                >
-                    { bookAuthor }
+                <div className="book-authors" >
+                    { author }
                 </div>
 
             </div>
