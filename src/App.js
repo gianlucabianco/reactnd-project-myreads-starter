@@ -1,6 +1,7 @@
-import React from 'react'
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import * as BooksAPI from './BooksAPI';
+import './App.css';
 
 import Bookshelf from './components/Bookshelf';
 
@@ -245,7 +246,12 @@ class BooksApp extends React.Component {
               
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <Link
+                to="/search"
+                className="open-search-button"
+              >
+                Add a book
+              </Link>
             </div>
           </div>
         )}
