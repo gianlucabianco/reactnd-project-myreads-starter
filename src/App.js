@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 // import * as BooksAPI from './BooksAPI';
 import './App.css';
 
-import Bookshelf from './components/Bookshelf';
+import ListBooks from './components/ListBooks';
 
 class BooksApp extends React.Component {
   state = {
@@ -204,41 +204,14 @@ class BooksApp extends React.Component {
           exact
           render={
             () => (
-              <div className="list-books">
-
-                <div className="list-books-title">
-                  <h1>MyReads</h1>
-                </div>
-  
-                <div className="list-books-content">
-                  <div>
-                  {
-                    bookShelves.map(
-                      shelf => (
-                        <Bookshelf
-                          key={ shelf.title }
-                          books={ shelf.books }                      
-                          shelfName={ shelf.title }
-                          onShelfChange={ this.onShelfChange }
-                        />
-                      )
-                    )
-                  }
-                  </div>              
-                </div>
-  
-                <div className="open-search">
-                  <Link
-                    to="/search"
-                    className="open-search-button"
-                  >
-                    Add a book
-                  </Link>
-                </div>
-              </div>  
+              <ListBooks
+                bookShelves={ bookShelves }
+                onShelfChange={ this.onShelfChange }
+              />
             )
           }
         />
+
         <Route
           path="/search"
           exact
@@ -246,7 +219,7 @@ class BooksApp extends React.Component {
             () => (
               <div className="search-books">
                 <div className="search-books-bar">
-                  {/* TODO / FIXME: backBtn onClick */}
+                  {/* TODO / FIXME: backBtn onClick => <Link> */}
                   <button className="close-search" onClick={() => ({})}>Close</button>
                   <div className="search-books-input-wrapper">
                     {/*
