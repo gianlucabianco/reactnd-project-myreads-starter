@@ -4,18 +4,34 @@ import BookShelfChanger from './BookShelfChanger';
 
 class BookCard extends React.Component {
 
+    onShelfChange = newShelf => {
+        
+        this.props.onShelfChange(
+            {
+                currentShelf: this.props.shelfName,
+                newShelf,
+                book: {
+                    title: this.props.title,
+                    author: this.props.author,
+                    cover: this.props.cover,
+                },
+            }
+        );
+
+    }
+
     render() {
 
         const {
+            shelfName,
             title,
             author,
-            cover
+            cover,
         } = this.props;
 
         return (
             <div className="book">
                 <div className="book-top">
-                {/* TODO: move book-cover style properties in a scoped css set of rules */}
                 <div
                     className="book-cover"
                     style={{
@@ -28,7 +44,10 @@ class BookCard extends React.Component {
                     }}
                 />
 
-                <BookShelfChanger />
+                <BookShelfChanger
+                    shelfName={ shelfName }
+                    onShelfChange={ this.onShelfChange }
+                />
                 
                 </div>
 
