@@ -4,11 +4,17 @@ import BookCard from './BookCard';
 
 class Bookshelf extends React.Component {
 
+    onShelfChange = newShelfData => {
+        
+        this.props.onShelfChange( newShelfData );
+
+    }
+
     render() {
 
         const {
             books,
-            shelfName
+            shelfName,
         } = this.props;
 
         return (
@@ -17,19 +23,21 @@ class Bookshelf extends React.Component {
                 <div className="bookshelf-books">
                 <ol className="books-grid">
                     {
-                    books.map(
-                        book => (
-                        <li 
-                            key={ book.title }
-                        >
-                            <BookCard
-                                title={ book.title }
-                                author={ book.author }
-                                cover={ book.cover }
-                            />
-                        </li>
+                        books.map(
+                            book => (
+                            <li 
+                                key={ book.title }
+                            >
+                                <BookCard
+                                    title={ book.title }
+                                    author={ book.author }
+                                    cover={ book.cover }
+                                    shelfName={ shelfName }
+                                    onShelfChange={ this.onShelfChange }
+                                />
+                            </li>
+                            )
                         )
-                    )
                     }
                 </ol>
                 </div>
