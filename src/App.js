@@ -75,6 +75,114 @@ class BooksApp extends React.Component {
       }
     ],
     showSearchPage: false
+  };
+
+  removeFromShelf = (
+    book,
+    currentShelf,
+  ) => {
+
+    const updatedBookShelves = this.state.bookShelves.map(
+      shelf => shelf.title !== currentShelf
+      ? shelf
+      : {
+          ...shelf,
+          books: shelf.books.filter(
+            bookOnShelf => bookOnShelf.title !== book.title
+          )
+        }
+      )
+
+    this.setState(
+      {
+        bookShelves: updatedBookShelves,
+      }
+    );
+
+  };
+
+  addToShelf = (
+    book,
+    newShelf,
+  ) => {
+
+    const updatedBookShelves = this.state.bookShelves.map(
+      shelf => shelf.title !== newShelf
+      ? shelf
+      : 
+        {
+            ...shelf,
+            books: [
+              ...shelf.books,
+              book,
+            ]
+        }
+    );
+
+    this.setState(
+      {
+        bookShelves: updatedBookShelves,
+      }
+    );
+
+  };
+
+  onShelfChange = newShelfData => {
+
+    async function handleBook(
+      data,
+      removeFunction = () => ( {} ),
+      addFunction = () => ( {} ),
+    ) {
+
+      const {
+        book,
+        currentShelf,
+        newShelf,
+      } = data;
+
+      try {
+
+        await removeFunction(
+          book,
+          currentShelf,
+        );
+
+        try {
+
+          addFunction(
+            book,
+            newShelf,
+          )
+
+        } catch( errorWhenAdding ) {
+
+          console.log(
+            {
+              errorWhenAdding
+            }
+          );
+
+        }
+
+      } catch( errorWhenRemoving ) {
+
+        console.log(
+          {
+            errorWhenRemoving,
+          }
+        );
+
+      }
+
+    }
+
+    handleBook(
+      newShelfData,
+      this.removeFromShelf,
+      this.addToShelf
+    );
+
   }
 
   render() {
@@ -119,7 +227,8 @@ class BooksApp extends React.Component {
                     <Bookshelf
                       key={ shelf.title }
                       books={ shelf.books }                      
-                      shelfName={ shelf.title }                      
+                      shelfName={ shelf.title }
+                      onShelfChange={ this.onShelfChange }
                     />
                   )
                 )
