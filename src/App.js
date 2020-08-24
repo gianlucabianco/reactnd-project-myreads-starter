@@ -150,7 +150,7 @@ class BooksApp extends React.Component {
           If currentShelf is not passed, the user is adding a non existing book to one shelf
           without removing a book from an existing shelf (removeFunction is not called).
         */
-       
+
         currentShelf && await removeFunction(
           book,
           currentShelf,
@@ -199,6 +199,7 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
+        {/* TODO: <BrowserRouter></BrowserRouter> */}
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
