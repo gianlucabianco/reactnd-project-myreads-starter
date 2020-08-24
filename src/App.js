@@ -23,7 +23,7 @@ class BooksApp extends React.Component {
           },
           {
             title: 'Batwoman',
-            author: 'J.H. Williams III',
+            author: 'Greg Rucka, J.H.Williams III',
             cover: 'https://images-na.ssl-images-amazon.com/images/I/61KzMKstU-L._SX320_BO1,204,203,200_.jpg',
           },
           {
@@ -137,13 +137,21 @@ class BooksApp extends React.Component {
 
       const {
         book,
-        currentShelf,
+        currentShelf = '',
         newShelf,
       } = data;
 
       try {
 
-        await removeFunction(
+        /*
+          TODO / FIXME: test the following control "currentShelf && await () => ({})".
+          (the first test - with an hardcoded empty currentShelf String - passed, if after routing development the test is ok, leave the comment below).
+
+          If currentShelf is not passed, the user is adding a non existing book to one shelf
+          without removing a book from an existing shelf (removeFunction is not called).
+        */
+       
+        currentShelf && await removeFunction(
           book,
           currentShelf,
         );
