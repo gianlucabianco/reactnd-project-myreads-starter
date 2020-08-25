@@ -8,7 +8,6 @@ class BookCard extends React.Component {
         
         this.props.onShelfChange(
             {
-                currentShelf: this.props.shelfName,
                 newShelf,
                 book: {
                     id: this.props.book.id,
