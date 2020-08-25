@@ -11,9 +11,7 @@ class BookCard extends React.Component {
                 currentShelf: this.props.shelfName,
                 newShelf,
                 book: {
-                    title: this.props.title,
-                    author: this.props.author,
-                    cover: this.props.cover,
+                    id: this.props.book.id,
                 },
             }
         );
@@ -24,9 +22,7 @@ class BookCard extends React.Component {
 
         const {
             shelfName,
-            title,
-            author,
-            cover,
+            book,
         } = this.props;
 
         return (
@@ -40,7 +36,7 @@ class BookCard extends React.Component {
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
-                        backgroundImage: `url("${ cover }")`,
+                        backgroundImage: `url("${ book.imageLinks.thumbnail }")`,
                     }}
                 />
 
@@ -52,10 +48,18 @@ class BookCard extends React.Component {
                 </div>
 
                 <div className="book-title" >
-                    { title }
+                    { book.title }
                 </div>
                 <div className="book-authors" >
-                    { author }
+                    {
+                        book.authors.map(
+                            author => (
+                                <div
+                                    key={ author }
+                                >{ author }</div>
+                            )
+                        )
+                    }
                 </div>
 
             </div>
