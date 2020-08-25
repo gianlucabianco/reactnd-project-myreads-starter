@@ -26,12 +26,10 @@ class Bookshelf extends React.Component {
                         books.map(
                             book => (
                             <li 
-                                key={ book.title }
+                                key={ book.id }
                             >
                                 <BookCard
-                                    title={ book.title }
-                                    author={ book.author }
-                                    cover={ book.cover }
+                                    book={ book }                                    
                                     shelfName={ shelfName }
                                     onShelfChange={ this.onShelfChange }
                                 />
