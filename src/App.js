@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-// import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 import ListBooks from './components/ListBooks';
@@ -8,189 +8,132 @@ import SearchBooks from './components/SearchBooks';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    bookShelves: [
+    bookShelves: [],
+  };
+
+  componentDidMount = () => {
+    this.fetchBooks();
+  }
+
+  fetchBooks = () => {
+
+    BooksAPI.getAll()
+    .then(
+      books => {
+        this.getShelves( books )  
+      }
+    );
+
+  }
+
+  getShelves = books => {
+
+    const bookShelves = [
       {
-        title: 'Currently Reading',
-        books: [
-          {
-            title: 'Composing Software: An Exploration of Functional Programming and Object Composition in JavaScript',
-            author: 'Eric Elliot',
-            cover: 'https://d2sofvawe08yqg.cloudfront.net/composingsoftware/hero?1588710676',
-          },
-          {
-            title: 'Batwoman',
-            author: 'Greg Rucka, J.H.Williams III',
-            cover: 'https://images-na.ssl-images-amazon.com/images/I/61KzMKstU-L._SX320_BO1,204,203,200_.jpg',
-          },
-          {
-            title: 'Do the work',
-            author: 'Steven Pressfield',
-            cover: 'https://images-na.ssl-images-amazon.com/images/I/41S6LVVM5pL._SX311_BO1,204,203,200_.jpg',
-          },
-        ],
+        title: 'Currently reading',
+        books: [],
       },
       {
-        title: 'Want to Read',
-        books: [
-          {
-            title: 'Clean Code: A Handbook of Agile Software Craftsmanship',
-            author: 'Martin Robert C.',
-            cover: 'https://m.media-amazon.com/images/I/41SH-SvWPxL.jpg',
-          },
-          {
-            title: 'Promethea',
-            author: 'Alan Moore',
-            cover: 'https://i.pinimg.com/474x/f5/fa/87/f5fa87848339b69b90a981563f9aff06--bangs-to-bring.jpg',
-          },
-          {
-            title: 'Shogun',
-            author: 'James Clavell',
-            cover: 'https://img.ibs.it/images/9788858779347_0_0_626_75.jpg',
-          },
-        ],
+        title: 'Want to read',
+        books: [],
       },
       {
         title: 'Read',
-        books: [
-          {
-            title: 'Homo Deus: A Brief History of Tomorrow',
-            author: 'Yuval Noah Harari',
-            cover: 'https://images-na.ssl-images-amazon.com/images/I/71FX96Ae-PL.jpg',
-          },
-          {
-            title: 'Akira',
-            author: 'Katsuhiro Ōtomo',
-            cover: 'https://images-na.ssl-images-amazon.com/images/I/91XooFfV1tL.jpg',
-          },
-          {
-            title: 'The verdant passage',
-            author: 'Troy Denning',
-            cover: 'https://images-na.ssl-images-amazon.com/images/I/51AXYF5GWVL.jpg',
-          },
-        ],
-      }
-    ],
-  };
+        books: [],
+      },
+    ];
+  
+    books.forEach(
+      book => {
+        
+        if ( book.shelf ) {
 
-  removeFromShelf = (
-    book,
-    currentShelf,
-  ) => {
+          book.shelf === 'currentlyReading'
+          && bookShelves[ 0 ].books.push( book );
+          
+          book.shelf === 'wantToRead'
+          && bookShelves[ 1 ].books.push( book );
+          
+          book.shelf === 'read'
+          && bookShelves[ 2 ].books.push( book );
 
-    const updatedBookShelves = this.state.bookShelves.map(
-      shelf => shelf.title !== currentShelf
-      ? shelf
-      : {
-          ...shelf,
-          books: shelf.books.filter(
-            bookOnShelf => bookOnShelf.title !== book.title
-          )
         }
-      )
-
-    this.setState(
-      {
-        bookShelves: updatedBookShelves,
+                    
       }
     );
 
-  };
-
-  addToShelf = (
-    book,
-    newShelf,
-  ) => {
-
-    const updatedBookShelves = this.state.bookShelves.map(
-      shelf => shelf.title !== newShelf
-      ? shelf
-      : 
+    this.setState(
         {
-            ...shelf,
-            books: [
-              ...shelf.books,
-              book,
-            ]
+            bookShelves,
         }
     );
 
-    this.setState(
-      {
-        bookShelves: updatedBookShelves,
-      }
-    );
-
-  };
+  }
 
   onShelfChange = newShelfData => {
 
-    async function handleBook(
-      data,
-      removeFunction = () => ( {} ),
-      addFunction = () => ( {} ),
-    ) {
+    BooksAPI.update(
+      {
+        id: newShelfData.book.id
+      },
+      newShelfData.newShelf
+    ).then(
+      result =>  { this.updateShelves( result ) }
+    )
 
-      const {
-        book,
-        currentShelf = '',
-        newShelf,
-      } = data;
+  }
 
-      try {
+  updateShelves = booksIdsByShelves => {
 
-        /*
-          TODO / FIXME: test the following control "currentShelf && await () => ({})".
-          (the first test - with an hardcoded empty currentShelf String - passed, if after routing development the test is ok, leave the comment below).
 
-          If currentShelf is not passed, the user is adding a non existing book to one shelf
-          without removing a book from an existing shelf (removeFunction is not called).
-        */
+    let notSortedByShelfBooks = [];
 
-        currentShelf && await removeFunction(
-          book,
-          currentShelf,
-        );
+    this.state.bookShelves.map(
+      shelf => shelf.books.forEach(
+        book => {
 
-        try {
+          const {
+            shelf,
+            ...noShelfBook
+          } = book;
 
-          addFunction(
-            book,
-            newShelf,
-          )
-
-        } catch( errorWhenAdding ) {
-
-          console.log(
-            {
-              errorWhenAdding
-            }
-          );
+          notSortedByShelfBooks.push( noShelfBook );
 
         }
+      )
+    )
+    
+    let updatedBooks = [];
 
-      } catch( errorWhenRemoving ) {
+    for (const shelfName in booksIdsByShelves) {
 
-        console.log(
-          {
-            errorWhenRemoving,
-          }
-        );
+        if(
+          Object.prototype.hasOwnProperty.call( booksIdsByShelves, shelfName )
+        ) {
 
-      }
+          booksIdsByShelves[ shelfName ].forEach(
+            id => {
 
+              const book = notSortedByShelfBooks.find(
+                book => book.id === id
+              );
+
+              updatedBooks.push(
+                {
+                  ...book,
+                  shelf: shelfName,
+                }
+              );
+
+            }
+
+          );        
+          
+        }
+        
     }
 
-    handleBook(
-      newShelfData,
-      this.removeFromShelf,
-      this.addToShelf
-    );
+    this.getShelves( updatedBooks );
 
   }
 
