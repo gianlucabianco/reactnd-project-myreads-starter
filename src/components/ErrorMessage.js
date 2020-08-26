@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ErrorMessage extends React.Component {
 
@@ -86,7 +87,7 @@ class ErrorMessage extends React.Component {
             'Virtual Reality',
             'Web Development',
             'iOS'
-        ]
+        ];
 
         return (
             <div
@@ -122,5 +123,10 @@ class ErrorMessage extends React.Component {
     }
 
 };
+
+ErrorMessage.propTypes = {
+    isError: PropTypes.bool.isRequired,
+    message: PropTypes.string.isRequired,
+  };
 
 export default ErrorMessage;
