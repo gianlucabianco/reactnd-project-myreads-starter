@@ -16,13 +16,13 @@ class BookCard extends React.Component {
             }
         );
 
-    }
+    };
     
     showDetails = book => {
         
         this.props.showDetails( book );
 
-    }
+    };
 
     render() {
 
@@ -78,9 +78,9 @@ class BookCard extends React.Component {
             </div>
         );
 
-    }
+    };
 
-}
+};
 
 BookCard.propTypes = {
     onShelfChange: PropTypes.func.isRequired,
