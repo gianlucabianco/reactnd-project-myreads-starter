@@ -10,6 +10,12 @@ class Bookshelf extends React.Component {
 
     }
 
+    showDetails = book => {
+        
+        this.props.showDetails( book );
+
+    }
+
     render() {
 
         const {
@@ -32,6 +38,7 @@ class Bookshelf extends React.Component {
                                     book={ book }                                    
                                     shelfName={ book.shelf }
                                     onShelfChange={ this.onShelfChange }
+                                    showDetails={ this.showDetails }
                                 />
                             </li>
                             )

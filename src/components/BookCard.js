@@ -16,6 +16,12 @@ class BookCard extends React.Component {
         );
 
     }
+    
+    showDetails = book => {
+        
+        this.props.showDetails( book );
+
+    }
 
     render() {
 
@@ -37,6 +43,7 @@ class BookCard extends React.Component {
                         backgroundSize: 'cover',
                         backgroundImage: `url("${ book && book.imageLinks && book.imageLinks.thumbnail }")`,
                     }}
+                    onClick={ () => this.showDetails( book ) }
                 />
 
                 <BookShelfChanger

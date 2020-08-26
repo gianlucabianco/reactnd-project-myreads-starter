@@ -96,6 +96,12 @@ class BooksApp extends React.Component {
 
   }
 
+  showDetails = book => {
+
+    console.log( book )
+
+  }
+
   render() {
 
     const {
@@ -113,6 +119,7 @@ class BooksApp extends React.Component {
               <ListBooks
                 bookShelves={ bookShelves }
                 onShelfChange={ this.onShelfChange }
+                showDetails={ this.showDetails }
               />
             )
           }
@@ -126,6 +133,7 @@ class BooksApp extends React.Component {
               <SearchBooks
                 allBooks={ allBooks }
                 onShelfChange={ this.onShelfChange }
+                showDetails={ this.showDetails }
               />
             )
           }

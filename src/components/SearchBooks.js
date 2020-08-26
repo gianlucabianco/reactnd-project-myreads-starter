@@ -37,6 +37,12 @@ class SearchBooks extends React.Component {
 
   }
 
+  showDetails = book => {
+        
+    this.props.showDetails( book );
+
+  }
+
   onSearch = query => {
 
     this.setState(
@@ -115,6 +121,7 @@ class SearchBooks extends React.Component {
                           book={ book }                                    
                           shelfName={ this.getShelfName( book, allBooks ) }
                           onShelfChange={ this.onShelfChange }
+                          showDetails={ this.showDetails }
                       />
                   </li>
                 )

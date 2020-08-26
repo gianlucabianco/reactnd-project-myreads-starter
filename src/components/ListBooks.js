@@ -11,6 +11,12 @@ class ListBooks extends React.Component {
 
     }
 
+    showDetails = book => {
+        
+      this.props.showDetails( book );
+
+    }
+
     render() {
 
         const { bookShelves } = this.props;
@@ -31,6 +37,7 @@ class ListBooks extends React.Component {
                           books={ shelf.books }                      
                           shelfName={ shelf.title }
                           onShelfChange={ this.onShelfChange }
+                          showDetails={ this.showDetails }
                         />
                       )
                     )
