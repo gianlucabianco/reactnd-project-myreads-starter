@@ -35,7 +35,7 @@ class BookCard extends React.Component {
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
-                        backgroundImage: `url("${ book.imageLinks.thumbnail }")`,
+                        backgroundImage: `url("${ book && book.imageLinks && book.imageLinks.thumbnail }")`,
                     }}
                 />
 
@@ -47,11 +47,16 @@ class BookCard extends React.Component {
                 </div>
 
                 <div className="book-title" >
-                    { book.title }
+                    {
+                        book
+                        && book.title
+                    }
                 </div>
                 <div className="book-authors" >
                     {
-                        book.authors.map(
+                        book
+                        && book.authors
+                        && book.authors.map(
                             author => (
                                 <div
                                     key={ author }
