@@ -24,7 +24,6 @@ class BookShelfChanger extends React.Component {
                     onChange={ this.handleChange }
                     defaultValue={ this.props.shelfName }                    
                 >
-                    {/* TODO: from static template to data.map() */}
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
