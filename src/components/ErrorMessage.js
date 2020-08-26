@@ -5,7 +5,12 @@ class ErrorMessage extends React.Component {
     
     render() {
 
-        /* Note for the Reviewer: "hints" should come from a props / BE / API */        
+        const {
+            isError,
+            message,
+        } = this.props;
+
+        /* Note for the Reviewer: "hints" could come from a props / BE / API */
         const hints = [
             'Android',
             'Art',
@@ -95,7 +100,7 @@ class ErrorMessage extends React.Component {
                 <p
                     className="error-message-title"
                 >
-                    { this.props.message }
+                    { message }
                 </p>
                 <div
                     className="error-message-hints"
@@ -104,7 +109,7 @@ class ErrorMessage extends React.Component {
                         Try something like this:
                     </div>                
                     {
-                        this.props.isError
+                        isError
                         && hints.map(
                             (
                                 hint,
@@ -119,7 +124,7 @@ class ErrorMessage extends React.Component {
                 </div>
             </div>
         );
-    }
+    };
 
 };
 
