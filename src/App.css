@@ -251,7 +251,7 @@ button:active {
 
   min-width: 280px;
   max-width: 768px;
-  height: calc(100vh - 10%);
+  max-height: calc(100vh - 10%);
 
   padding: 0 24px;
 
