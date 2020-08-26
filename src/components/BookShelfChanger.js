@@ -6,21 +6,10 @@ class BookShelfChanger extends React.Component {
 
         const newShelf = event.target.value;
 
-        if ( newShelf !== 'None' ) {
-            
-            /* parse newShelf in the right structure accepted from BooksAPI.js */
+        if ( newShelf !== 'none' ) {
 
             this.props.onShelfChange(
                 newShelf
-                .split(' ')
-                .map(
-                    (
-                        word,
-                        index
-                    ) => index === 0
-                    ? word.toLowerCase()
-                    : word.toLowerCase().charAt(0).toUpperCase() + word.slice( 1 )
-                ).join('')
             );
 
         }
@@ -36,11 +25,11 @@ class BookShelfChanger extends React.Component {
                     defaultValue={ this.props.shelfName }                    
                 >
                     {/* TODO: from static template to data.map() */}
-                    <option value="Move" disabled>Move to...</option>
-                    <option value="Currently reading">Currently Reading</option>
-                    <option value="Want to read">Want to Read</option>
-                    <option value="Read">Read</option>
-                    <option value="None">None</option>
+                    <option value="move" disabled>Move to...</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="wantToRead">Want to Read</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
                 </select>
             </div>
         );
