@@ -16,6 +16,33 @@ class SearchBooks extends React.Component {
     isError: false,
   };
 
+  getShelfName = ( book, allBooks ) => {
+    
+    let shelf = 'None';
+    
+    const matchingBook = allBooks.find(
+      currentBook => currentBook.id === book.id
+    );
+    
+    if( matchingBook ) {
+
+      /* TODO: better BL for shelf reassignment*/
+
+      if( matchingBook.shelf === 'currentlyReading' )
+        shelf = 'Currently reading';
+      
+      if( matchingBook.shelf === 'wantToRead' )
+        shelf = 'Want to read';
+
+      if( matchingBook.shelf === 'read' )
+        shelf = 'Read';
+
+    }
+
+    return shelf;
+
+  }
+
   onShelfChange = newShelfData => {
       
       this.props.onShelfChange( newShelfData );
@@ -56,7 +83,7 @@ class SearchBooks extends React.Component {
 
   render() {
 
-    const shelfName = 'None'; // TODO: this should be the default value for a book with not shelfName assigned
+    const { allBooks } = this.props;
 
     const {
       query,
@@ -76,7 +103,7 @@ class SearchBooks extends React.Component {
 
           <div className="search-books-input-wrapper">
             <DebounceInput
-              debounceTimeout={ 300 } 
+              debounceTimeout={ 200 } 
               value={ query }
               onChange={ event => this.onSearch( event.target.value ) }
               type="text"
@@ -89,21 +116,21 @@ class SearchBooks extends React.Component {
 
           <ol className="books-grid">
             {
-                query
-                && results
-                && results.map(
-                  book => (
-                    <li 
-                        key={ book.id }
-                    >
-                        <BookCard
-                            book={ book }                                    
-                            shelfName={ shelfName }
-                            onShelfChange={ this.onShelfChange }
-                        />
-                    </li>
-                  )
+              query
+              && results
+              && results.map(
+                book => (
+                  <li 
+                      key={ book.id }
+                  >
+                      <BookCard
+                          book={ book }                                    
+                          shelfName={ this.getShelfName( book, allBooks ) }
+                          onShelfChange={ this.onShelfChange }
+                      />
+                  </li>
                 )
+              )
             }
           </ol>
         
