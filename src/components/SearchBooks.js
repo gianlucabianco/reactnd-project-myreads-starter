@@ -56,7 +56,7 @@ class SearchBooks extends React.Component {
 
   render() {
 
-    const shelfName = ''; // TODO: data && data structure
+    const shelfName = 'None'; // TODO: this should be the default value for a book with not shelfName assigned
 
     const {
       query,
@@ -106,15 +106,15 @@ class SearchBooks extends React.Component {
                 )
             }
           </ol>
-        </div>
         
-        {
-          isError
-          && <ErrorMessage
-            isError={ isError }
-            message={ 'No results founded. Please try with a different query' }
-          />
-        }
+          {
+            isError
+            && <ErrorMessage
+              isError={ isError }
+              message={ 'No results founded. Please try with a different query' }
+            />
+          }
+        </div>
         
       </div>
     );
