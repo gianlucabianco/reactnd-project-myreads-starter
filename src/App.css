@@ -196,3 +196,25 @@ button:active {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* error message */
+
+.error-message {
+
+  width: 100%;
+  padding: 320px 25%;
+
+}
+
+.error-message-title{
+
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+.error-message-hints{
+
+  color: lightgray;
+
+}
