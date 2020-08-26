@@ -18,26 +18,14 @@ class SearchBooks extends React.Component {
 
   getShelfName = ( book, allBooks ) => {
     
-    let shelf = 'None';
+    let shelf = 'none';
     
     const matchingBook = allBooks.find(
       currentBook => currentBook.id === book.id
     );
     
-    if( matchingBook ) {
-
-      /* TODO: better BL for shelf reassignment*/
-
-      if( matchingBook.shelf === 'currentlyReading' )
-        shelf = 'Currently reading';
-      
-      if( matchingBook.shelf === 'wantToRead' )
-        shelf = 'Want to read';
-
-      if( matchingBook.shelf === 'read' )
-        shelf = 'Read';
-
-    }
+    if( matchingBook )
+      shelf = matchingBook.shelf;
 
     return shelf;
 
@@ -45,7 +33,7 @@ class SearchBooks extends React.Component {
 
   onShelfChange = newShelfData => {
       
-      this.props.onShelfChange( newShelfData );
+    this.props.onShelfChange( newShelfData );
 
   }
 
