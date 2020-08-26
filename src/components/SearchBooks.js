@@ -1,75 +1,125 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import BookCard from './BookCard';
 
+import { Link } from 'react-router-dom';
+import { DebounceInput } from 'react-debounce-input';
+
+import BookCard from './BookCard';
+import ErrorMessage from './ErrorMessage';
+
+import * as BooksAPI from '../BooksAPI';
 
 class SearchBooks extends React.Component {
 
-    onShelfChange = newShelfData => {
-        
-        this.props.onShelfChange( newShelfData );
+  state = {
+    query: '',
+    results: [],
+    isError: false,
+  };
 
-    }
+  onShelfChange = newShelfData => {
+      
+      this.props.onShelfChange( newShelfData );
 
-    render() {
+  }
 
-        const { bookShelves } = this.props
-        , books = [] // TODO: data && data structure
-        , shelfName = '';  // TODO: data && data structure
+  onSearch = query => {
 
-        console.log(
+    this.setState(
+      {
+        query,
+        isError: false,
+      }
+    );
+
+    query.length
+    && BooksAPI.search(
+      query
+    ).then(
+      result => {
+        Array.isArray( result )
+        ? this.setState(
           {
-            bookShelves,
+            results: result,
+            isError: false,
           }
-        );
+        )
+        : this.setState(
+          {
+            results: [],
+            isError: true,
+          }
+        )
+      }
+    );
 
-        return (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <Link
-                to="/"
-                className="close-search"
-              >
-                Close
-              </Link>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+  }
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
+  render() {
 
-              </div>
-            </div>
-            <div className="search-books-results">
-            <ol className="books-grid">
-                {
-                    books.map(
-                        book => (
-                        <li 
-                            key={ book.title }
-                        >
-                            <BookCard
-                                title={ book.title }
-                                author={ book.author }
-                                cover={ book.cover }
-                                shelfName={ shelfName }
-                                onShelfChange={ this.onShelfChange }
-                            />
-                        </li>
-                        )
-                    )
-                }
-              </ol>
-            </div>
+    const shelfName = ''; // TODO: data && data structure
+
+    const {
+      query,
+      results,
+      isError
+    } = this.state;
+
+    return (
+      <div className="search-books">
+        <div className="search-books-bar">
+          <Link
+            to="/"
+            className="close-search"
+          >
+            Close
+          </Link>
+
+          <div className="search-books-input-wrapper">
+            <DebounceInput
+              debounceTimeout={ 300 } 
+              value={ query }
+              onChange={ event => this.onSearch( event.target.value ) }
+              type="text"
+              placeholder="Search by title or author"
+            />
           </div>
-        );
+        </div>
 
-    }
+        <div className="search-books-results">
+
+          <ol className="books-grid">
+            {
+                query
+                && results
+                && results.map(
+                  book => (
+                    <li 
+                        key={ book.id }
+                    >
+                        <BookCard
+                            book={ book }                                    
+                            shelfName={ shelfName }
+                            onShelfChange={ this.onShelfChange }
+                        />
+                    </li>
+                  )
+                )
+            }
+          </ol>
+        </div>
+        
+        {
+          isError
+          && <ErrorMessage
+            isError={ isError }
+            message={ 'No results founded. Please try with a different query' }
+          />
+        }
+        
+      </div>
+    );
+
+  }
 
 }
 
