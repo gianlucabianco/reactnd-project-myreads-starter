@@ -23,7 +23,6 @@ class ListBooks extends React.Component {
                 </div>
   
                 <div className="list-books-content">
-                  <div>
                   {
                     bookShelves.map(
                       shelf => (
@@ -35,8 +34,7 @@ class ListBooks extends React.Component {
                         />
                       )
                     )
-                  }
-                  </div>              
+                  }             
                 </div>
   
                 <div className="open-search">
