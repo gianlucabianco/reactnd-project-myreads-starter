@@ -30,19 +30,19 @@ class SearchBooks extends React.Component {
 
     return shelf;
 
-  }
+  };
 
   onShelfChange = newShelfData => {
       
     this.props.onShelfChange( newShelfData );
 
-  }
+  };
 
   showDetails = book => {
         
     this.props.showDetails( book );
 
-  }
+  };
 
   onSearch = query => {
 
@@ -70,11 +70,11 @@ class SearchBooks extends React.Component {
           {
             isError: true,
           }
-        )
+        );
       }
     );
 
-  }
+  };
 
   render() {
 
