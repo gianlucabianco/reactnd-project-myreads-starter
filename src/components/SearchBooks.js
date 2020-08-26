@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 import { DebounceInput } from 'react-debounce-input';
@@ -136,13 +137,18 @@ class SearchBooks extends React.Component {
               message={ 'No results founded. Please try with a different query' }
             />
           }
-        </div>
-        
+        </div>        
       </div>
     );
 
   }
 
 }
+
+SearchBooks.propTypes = {
+  onShelfChange: PropTypes.func.isRequired,
+  showDetails: PropTypes.func.isRequired,
+  allBooks: PropTypes.array.isRequired,
+};
 
 export default SearchBooks;
