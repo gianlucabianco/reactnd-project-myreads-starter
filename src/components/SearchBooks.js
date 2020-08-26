@@ -27,6 +27,7 @@ class SearchBooks extends React.Component {
     this.setState(
       {
         query,
+        results: [],
         isError: false,
       }
     );
@@ -45,7 +46,6 @@ class SearchBooks extends React.Component {
         )
         : this.setState(
           {
-            results: [],
             isError: true,
           }
         )
