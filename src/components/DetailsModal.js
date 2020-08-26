@@ -13,7 +13,17 @@ class DetailsModal extends React.Component {
 
     render() {
 
-        const { book } = this.props;
+        const {
+            title,
+            subtitle,
+            pageCount,
+            authors,
+            categories,
+            averageRating,
+            description,
+            publishedDate,
+            publisher
+        } = this.props.book;
 
         return (
             <div className="details-modal">
@@ -21,32 +31,32 @@ class DetailsModal extends React.Component {
                     <h2>Book details</h2>
                     
                     {
-                        book.title
+                        title
                         && <div>
-                            <strong>Title: </strong> { book.title }
+                            <strong>Title: </strong> { title }
                         </div>
                     }
 
                     {
-                        book.subtitle
+                        subtitle
                         && <div>
-                            <strong>Subtitle: </strong> { book.subtitle }
+                            <strong>Subtitle: </strong> { subtitle }
                         </div>
                     }
 
                     {
-                        book.pageCount
+                        pageCount
                         && <div>
-                            <strong>Page count: </strong> { book.pageCount }
+                            <strong>Page count: </strong> { pageCount }
                         </div>
                     }
 
                     {
-                        book.authors
-                        && book.authors.length
+                        authors
+                        && authors.length
                         && <div className="details-modal-content-authors">
                                 <strong>Authors:</strong> {
-                                    book.authors.map(
+                                    authors.map(
                                         author => (
                                             <div
                                                 key={ author }
@@ -60,11 +70,11 @@ class DetailsModal extends React.Component {
                     }
 
                     {
-                        book.categories
-                        && book.categories.length
+                        categories
+                        && categories.length
                         && <div className="details-modal-content-categories">
                             <strong>Categories:</strong> {
-                                book.categories.map(
+                                categories.map(
                                     category => (
                                         <div
                                             key={ category }
@@ -78,31 +88,31 @@ class DetailsModal extends React.Component {
                     }
 
                     {
-                        book.averageRating
+                        averageRating
                         && <div>
-                            <strong>Average Rating: </strong> { book.averageRating }/5
+                            <strong>Average Rating: </strong> { averageRating }/5
                         </div>
                     }
 
                     {
-                        book.description
+                        description
                         && <div className="details-modal-content-description">
                             <strong>Description: </strong>
-                            <span>{ book.description }</span>
+                            <span>{ description }</span>
                         </div>
                     }
 
                     {
-                        book.publishedDate
+                        publishedDate
                         && <div>
-                            <strong>Published Date: </strong> { book.publishedDate }
+                            <strong>Published Date: </strong> { publishedDate }
                         </div>
                     }
 
                     {
-                        book.publisher
+                        publisher
                         && <div>
-                            <strong>Publisher: </strong> { book.publisher }
+                            <strong>Publisher: </strong> { publisher }
                         </div>
                     }
 
