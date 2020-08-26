@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class BookShelfChanger extends React.Component {
 
@@ -6,13 +7,10 @@ class BookShelfChanger extends React.Component {
 
         const newShelf = event.target.value;
 
-        if ( newShelf !== 'none' ) {
-
-            this.props.onShelfChange(
-                newShelf
-            );
-
-        }
+        newShelf !== 'none'
+        && this.props.onShelfChange(
+            newShelf
+        );
 
       };
 
@@ -22,7 +20,7 @@ class BookShelfChanger extends React.Component {
             <div className="book-shelf-changer">
                 <select
                     onChange={ this.handleChange }
-                    defaultValue={ this.props.shelfName }                    
+                    defaultValue={ this.props.shelfName }
                 >
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
@@ -36,5 +34,10 @@ class BookShelfChanger extends React.Component {
     }
 
 }
+
+BookShelfChanger.propTypes = {
+    onShelfChange: PropTypes.func.isRequired,
+    shelfName: PropTypes.string.isRequired,
+};
 
 export default BookShelfChanger;
