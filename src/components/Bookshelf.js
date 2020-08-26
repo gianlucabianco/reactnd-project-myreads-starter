@@ -9,13 +9,13 @@ class Bookshelf extends React.Component {
         
         this.props.onShelfChange( newShelfData );
 
-    }
+    };
 
     showDetails = book => {
         
         this.props.showDetails( book );
 
-    }
+    };
 
     render() {
 
@@ -50,9 +50,9 @@ class Bookshelf extends React.Component {
             </div>
         );
 
-    }
+    };
 
-}
+};
 
 Bookshelf.propTypes = {
     onShelfChange: PropTypes.func.isRequired,
