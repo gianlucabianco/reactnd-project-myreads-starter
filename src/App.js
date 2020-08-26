@@ -9,6 +9,7 @@ import SearchBooks from './components/SearchBooks';
 class BooksApp extends React.Component {
   state = {
     bookShelves: [],
+    allBooks: [],
   };
 
   componentDidMount = () => {
@@ -20,13 +21,25 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
     .then(
       books => {
-        this.getShelves( books )  
+        this.setAllBooks( books )  
       }
     );
 
   }
 
-  getShelves = books => {
+  setAllBooks = allBooks => {
+
+    this.setState(
+      {
+        allBooks
+      }
+    )
+
+    this.setShelves( allBooks );
+
+  }
+
+  setShelves = books => {
 
     const bookShelves = [
       {
@@ -64,82 +77,31 @@ class BooksApp extends React.Component {
 
     this.setState(
         {
-            bookShelves,
+          bookShelves,
         }
     );
 
   }
 
   onShelfChange = newShelfData => {
-
+    
     BooksAPI.update(
       {
         id: newShelfData.book.id
       },
       newShelfData.newShelf
     ).then(
-      result =>  { this.updateShelves( result ) }
-    )
-
-  }
-
-  updateShelves = booksIdsByShelves => {
-
-
-    let notSortedByShelfBooks = [];
-
-    this.state.bookShelves.map(
-      shelf => shelf.books.forEach(
-        book => {
-
-          const {
-            shelf,
-            ...noShelfBook
-          } = book;
-
-          notSortedByShelfBooks.push( noShelfBook );
-
-        }
-      )
-    )
-    
-    let updatedBooks = [];
-
-    for (const shelfName in booksIdsByShelves) {
-
-        if(
-          Object.prototype.hasOwnProperty.call( booksIdsByShelves, shelfName )
-        ) {
-
-          booksIdsByShelves[ shelfName ].forEach(
-            id => {
-
-              const book = notSortedByShelfBooks.find(
-                book => book.id === id
-              );
-
-              updatedBooks.push(
-                {
-                  ...book,
-                  shelf: shelfName,
-                }
-              );
-
-            }
-
-          );        
-          
-        }
-        
-    }
-
-    this.getShelves( updatedBooks );
+      () => this.fetchBooks()
+    );
 
   }
 
   render() {
 
-    const { bookShelves } = this.state;
+    const {
+      bookShelves,
+      allBooks,
+    } = this.state;
 
     return (
       <div className="app">
@@ -162,7 +124,7 @@ class BooksApp extends React.Component {
           render={
             () => (
               <SearchBooks
-                bookShelves={ bookShelves }
+                allBooks={ allBooks }
                 onShelfChange={ this.onShelfChange }
               />
             )
