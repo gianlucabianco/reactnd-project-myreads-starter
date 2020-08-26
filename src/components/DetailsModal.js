@@ -9,7 +9,7 @@ class DetailsModal extends React.Component {
         
         this.props.hideDetails();
 
-    }
+    };
 
     render() {
 
@@ -125,9 +125,9 @@ class DetailsModal extends React.Component {
             </div>
         );
 
-    }
+    };
 
-}
+};
 
 DetailsModal.propTypes = {
     hideDetails: PropTypes.func.isRequired,
