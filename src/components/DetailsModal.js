@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class DetailsModal extends React.Component {
 
@@ -117,5 +118,10 @@ class DetailsModal extends React.Component {
     }
 
 }
+
+DetailsModal.propTypes = {
+    hideDetails: PropTypes.func.isRequired,
+    book: PropTypes.object.isRequired,
+};
 
 export default DetailsModal;
