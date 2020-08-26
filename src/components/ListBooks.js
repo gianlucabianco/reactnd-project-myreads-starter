@@ -11,13 +11,13 @@ class ListBooks extends React.Component {
       
     this.props.onShelfChange( newShelfData );
 
-  }
+  };
 
   showDetails = book => {
       
     this.props.showDetails( book );
 
-  }
+  };
 
   render() {
 
@@ -44,7 +44,7 @@ class ListBooks extends React.Component {
                   />
                 )
               )
-            }             
+            }
           </div>
 
           <div className="open-search">
@@ -58,9 +58,9 @@ class ListBooks extends React.Component {
       </div>
     );
 
-  }
+  };
 
-}
+};
 
 ListBooks.propTypes = {
   onShelfChange: PropTypes.func.isRequired,

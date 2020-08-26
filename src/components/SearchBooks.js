@@ -141,9 +141,9 @@ class SearchBooks extends React.Component {
       </div>
     );
 
-  }
+  };
 
-}
+};
 
 SearchBooks.propTypes = {
   onShelfChange: PropTypes.func.isRequired,
