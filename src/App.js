@@ -5,11 +5,16 @@ import './App.css';
 
 import ListBooks from './components/ListBooks';
 import SearchBooks from './components/SearchBooks';
+import DetailsModal from './components/DetailsModal';
 
 class BooksApp extends React.Component {
   state = {
     bookShelves: [],
     allBooks: [],
+    detailsModal: {
+      isOpen: false,
+      book: {},
+    }
   };
 
   componentDidMount = () => {
@@ -98,7 +103,27 @@ class BooksApp extends React.Component {
 
   showDetails = book => {
 
-    console.log( book )
+    this.setState(
+      {
+        detailsModal: {
+          isOpen: true,
+          book,
+        }
+      }
+    );
+
+  }
+
+  hideDetails = () => {
+
+    this.setState(
+      {
+        detailsModal: {
+          isOpen: false,
+          book: {},
+        }
+      }
+    );
 
   }
 
@@ -107,6 +132,7 @@ class BooksApp extends React.Component {
     const {
       bookShelves,
       allBooks,
+      detailsModal,
     } = this.state;
 
     return (
@@ -138,6 +164,14 @@ class BooksApp extends React.Component {
             )
           }
         />
+
+        {
+          detailsModal.isOpen
+          && <DetailsModal
+              book={ detailsModal.book }
+              hideDetails={ this.hideDetails }
+            />
+        }
       </div>
     )
   }
