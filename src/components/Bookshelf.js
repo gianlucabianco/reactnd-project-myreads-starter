@@ -30,7 +30,7 @@ class Bookshelf extends React.Component {
                             >
                                 <BookCard
                                     book={ book }                                    
-                                    shelfName={ shelfName }
+                                    shelfName={ book.shelf }
                                     onShelfChange={ this.onShelfChange }
                                 />
                             </li>
